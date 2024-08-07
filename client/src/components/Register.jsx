@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { EthContext } from '../contexts/EthContext';
 
-const Register = () => {
+const Registration = () => {
   const { account, contract } = useContext(EthContext);
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
@@ -9,11 +9,12 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await contract.methods.register(username, name).send({ from: account });
-      const userHash = response.events.UserRegistered.returnValues.userHash;
+      const result = await contract.methods.register(username, name).send({ from: account });
+      console.log('Registered:', result);
+      const userHash = result.events.UserRegistered.returnValues.userHash;
       setUserHash(userHash);
     } catch (error) {
-      console.error("Registration failed", error);
+      console.error('Registration failed', error);
     }
   };
 
@@ -38,4 +39,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Registration;

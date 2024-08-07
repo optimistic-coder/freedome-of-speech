@@ -2,16 +2,16 @@ import React, { useContext, useState } from 'react';
 import { EthContext } from '../contexts/EthContext';
 
 const Login = () => {
-  const {  contract } = useContext(EthContext);
+  const { account, contract } = useContext(EthContext);
   const [userHash, setUserHash] = useState('');
   const [loginUsername, setLoginUsername] = useState('');
   const [loginName, setLoginName] = useState('');
 
   const handleLogin = async () => {
     try {
-      const result = await contract.methods.login(userHash).call();
-      setLoginUsername(result[0]);
-      setLoginName(result[1]);
+      const result = await contract.methods.login(userHash).send({ from: account });
+      setLoginUsername(result.events.UserLoggedIn.returnValues.username);
+      setLoginName(result.events.UserLoggedIn.returnValues.name);
     } catch (error) {
       console.error("Login failed", error);
     }

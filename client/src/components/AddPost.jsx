@@ -1,29 +1,31 @@
-import React,{useState,useContext} from 'react'
+import React, { useContext, useState } from 'react';
 import { EthContext } from '../contexts/EthContext';
 
+const AddPost = () => {
+  const { account, contract } = useContext(EthContext);
+  const [content, setContent] = useState('');
 
-const AddPost=()=>{
-    const {  contract,account } = useContext(EthContext);
-    const [post,setPost] = useState("")
-
-    const addPost=async()=>{
-        if(post!==""){
-            try {
-                console.log(account,"3434",contract)
-                const response = await contract.methods.addPost(post).send({ from: account });
-                console.log(response)
-              } catch (error) {
-                console.error("Registration failed", error);
-              }
-
-        }
+  const handleAddPost = async () => {
+    try {
+      const result = await contract.methods.addPost(content).send({ from: account });
+      console.log('Post added:', result);
+    } catch (error) {
+      console.error('Adding post failed', error);
     }
-    const onChange=(str)=>setPost(str)
-    return(
-        <>
-        <input onChange={(e)=>onChange(e.target.value)}/>
-        <button onClick={()=>addPost()}>Submit</button>
-        </>
-    )
-}
+  };
+
+  return (
+    <div>
+      <h2>Add Post</h2>
+      <input
+        type="text"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="Content"
+      />
+      <button onClick={handleAddPost}>Add Post</button>
+    </div>
+  );
+};
+
 export default AddPost;
