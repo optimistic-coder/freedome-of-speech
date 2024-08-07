@@ -5,13 +5,14 @@ const Login = () => {
   const { account, contract } = useContext(EthContext);
   const [userHash, setUserHash] = useState('');
   const [loginUsername, setLoginUsername] = useState('');
-  const [loginName, setLoginName] = useState('');
+
 
   const handleLogin = async () => {
     try {
       const result = await contract.methods.login(userHash).send({ from: account });
+      console.log(result)
       setLoginUsername(result.events.UserLoggedIn.returnValues.username);
-      setLoginName(result.events.UserLoggedIn.returnValues.name);
+      
     } catch (error) {
       console.error("Login failed", error);
     }
@@ -28,7 +29,6 @@ const Login = () => {
       />
       <button onClick={handleLogin}>Login</button>
       <p>Username: {loginUsername}</p>
-      <p>Name: {loginName}</p>
     </div>
   );
 };
