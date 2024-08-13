@@ -3,7 +3,7 @@ import { EthContext } from '../contexts/EthContext';
 import { Link } from 'react-router-dom';
 
 const ViewPosts = () => {
-  const { contract, isLoggedIn } = useContext(EthContext); 
+  const { contract } = useContext(EthContext); 
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(0);
   const [pageSize] = useState(10);
@@ -51,7 +51,7 @@ const ViewPosts = () => {
       <h2 className="posts-heading">View Posts</h2>
       {isLoading && <p className="loading-message">Loading posts...</p>}
       {error && <p className="error-message">{error}</p>}
-      <div className="posts-list">
+      <div  className="posts-list">
         {posts.length > 0 ? (
           posts.map((post, index) => (
             <div className="post-item" key={index}>
@@ -67,14 +67,14 @@ const ViewPosts = () => {
         <button
           className="pagination-button"
           onClick={handlePreviousPage}
-          disabled={page === 0}
+         
         >
           Previous
         </button>
         <button
           className="pagination-button"
           onClick={handleNextPage}
-          disabled={posts.length < pageSize}
+          
         >
           Next
         </button>
@@ -85,11 +85,7 @@ const ViewPosts = () => {
           <Link to="/register" className="auth-button">Register</Link>
         </div>
       )}
-      {isUserHash && (
-        <div className="auth-buttons">
-          <Link to="/post" className="auth-button">Add Post</Link>
-        </div>
-      )}
+    
     </div>
   );
 };

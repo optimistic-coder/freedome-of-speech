@@ -16,19 +16,23 @@ function AnimatedRoutes() {
     <FadeTransition location={location}>
       <>
 
-      <div className="container">
-        {!isLogoutRoute && localStorage.getItem("userHash") ? (
-          <Link to="/logout" className="auth-button">Logout</Link>
-        ) : ""}
-        <Routes location={location}>
-          <Route path="/" element={<ViewPosts />} />
-          <Route path="login" element={<Login />} />
-          <Route path="logout" element={<Logout />} />
-          <Route path="register" element={<Register />} />
-          <Route path="post" element={<AddPost />} />
-          <Route path="*" element={<ViewPosts />} />
-        </Routes>
-      </div>
+        <div className="container">
+          {!isLogoutRoute && localStorage.getItem("userHash") ? (
+            <Link to="/logout" className="auth-button">Logout</Link>
+          ) : ""}
+          <Link to="/" className="auth-button">Home</Link>
+          {!isLogoutRoute && localStorage.getItem("userHash") && (
+            <Link to="/post" className="auth-button">Add Post</Link>
+          )}
+          <Routes location={location}>
+            <Route path="/" element={<ViewPosts />} />
+            <Route path="login" element={<Login />} />
+            <Route path="logout" element={<Logout />} />
+            <Route path="register" element={<Register />} />
+            <Route path="post" element={<AddPost />} />
+            <Route path="*" element={<ViewPosts />} />
+          </Routes>
+        </div>
       </>
     </FadeTransition>
   );
