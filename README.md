@@ -1,6 +1,5 @@
-# React Truffle Box
-
-This box comes with everything you need to start using Truffle to write, compile, test, and deploy smart contracts, and interact with them from a React app.
+# Freedom speech
+In this project login, logout, addpost all are secure with help of blockchain.
 
 ## Installation
 
